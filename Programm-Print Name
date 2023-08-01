@@ -1,0 +1,9 @@
+#include <stdio.h>
+int main() {
+    printf("Pyari");
+
+    return 0;
+}
+
+output:
+Pyari
