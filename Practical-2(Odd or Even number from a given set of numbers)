@@ -1,0 +1,37 @@
+Write a C program to find Odd or Even number from a given set of numbers
+#include <stdio.h>
+
+int main() {
+    int num, i;
+
+    printf("Enter the number of elements in the set: ");
+    scanf("%d", &num);
+
+    printf("Enter %d numbers:\n", num);
+    for (i = 0; i < num; i++) {
+        int input;
+        scanf("%d", &input);
+
+        if (input % 2 == 0) {
+            printf("%d is an even number.\n", input);
+        } else {
+            printf("%d is an odd number.\n", input);
+        }
+    }
+
+    return 0;
+}
+output:
+Enter the number of elements in the set: 5
+Enter 5 numbers:
+10
+10 is an even number.
+21
+21 is an odd number.
+32
+32 is an even number.
+45
+45 is an odd number.
+50
+50 is an even number.
+
