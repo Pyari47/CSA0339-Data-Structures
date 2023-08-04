@@ -1,69 +1,82 @@
 Write a C program to implement Stack operations such as PUSH, 
 POP and PEEK
 #include <stdio.h>
-#define MAX_SIZE 100
-// Stack structure
-struct Stack {
-    int arr[MAX_SIZE];
-    int top;
-};
-// Function to initialize the stack
-void initStack(struct Stack* stack) {
-    stack->top = -1;
-}
-// Function to check if the stack is empty
-int isEmpty(struct Stack* stack) {
-    return stack->top == -1;
-}
-// Function to check if the stack is full
-int isFull(struct Stack* stack) {
-    return stack->top == MAX_SIZE - 1;
-}
-
-// Function to push an element onto the stack
-void push(struct Stack* stack, int data) {
-    if (isFull(stack)) {
-        printf("Stack Overflow. Cannot push element %d.\n", data);
-        return;
+#include <stdlib.h>
+#define SIZE 4
+int top = -1, inp_array[SIZE];
+void push();
+void pop();
+void show();
+int main()
+{
+    int choice;
+    while (1)
+    {
+        printf("\nPerform operations on the stack:");
+        printf("\n1.Push the element\n2.Pop the element\n3.Show\n4.End");
+        printf("\n\nEnter the choice: ");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            push();
+            break;
+        case 2:
+            pop();
+            break;
+        case 3:
+            show();
+            break;
+        case 4:
+            exit(0);
+        default:
+            printf("\nInvalid choice!!");
+        }
     }
-
-    stack->top++;
-    stack->arr[stack->top] = data;
 }
 
-// Function to pop an element from the stack
-int pop(struct Stack* stack) {
-    if (isEmpty(stack)) {
-        printf("Stack Underflow. Cannot pop element from an empty stack.\n");
-        return -1;
+void push()
+{
+    int x;
+
+    if (top == SIZE - 1)
+    {
+        printf("\nOverflow!!");
     }
-
-    int data = stack->arr[stack->top];
-    stack->top--;
-    return data;
-}
-// Function to peek at the top element of the stack
-int peek(struct Stack* stack) {
-    if (isEmpty(stack)) {
-        printf("Stack is empty. Cannot peek.\n");
-        return -1;
+    else
+    {
+        printf("\nEnter the element to be added onto the stack: ");
+        scanf("%d", &x);
+        top = top + 1;
+        inp_array[top] = x;
     }
-    return stack->arr[stack->top];
 }
-int main() {
-    struct Stack stack;
-    initStack(&stack);
-    push(&stack, 10);
-    push(&stack, 20);
-    push(&stack, 30);
 
-    printf("Top element: %d\n", peek(&stack));
-    printf("Popped element: %d\n", pop(&stack));
-    printf("Popped element: %d\n", pop(&stack));
-    printf("Popped element: %d\n", pop(&stack));
-    printf("Popped element: %d\n", pop(&stack)); // Trying to pop from an empty stack
+void pop()
+{
+    if (top == -1)
+    {
+        printf("\nUnderflow!!");
+    }
+    else
+    {
+        printf("\nPopped element: %d", inp_array[top]);
+        top = top - 1;
+    }
+}
 
-    return 0;
+void show()
+{
+    if (top == -1)
+    {
+        printf("\nUnderflow!!");
+    }
+    else
+    {
+        printf("\nElements present in the stack: \n");
+        for (int i = top; i >= 0; --i)
+            printf("%d\n", inp_array[i]);
+    }
 }
 output:
 Top element: 30
