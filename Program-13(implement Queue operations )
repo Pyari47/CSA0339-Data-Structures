@@ -1,100 +1,80 @@
 Write a C program to implement Queue operations such as ENQUEUE, DEQUEUE and Display
 #include <stdio.h>
-
-#define MAX_SIZE 100
-
-// Queue structure
-struct Queue {
-    int arr[MAX_SIZE];
-    int front, rear;
-};
-
-// Function to initialize the queue
-void initQueue(struct Queue* queue) {
-    queue->front = -1;
-    queue->rear = -1;
+#include<stdlib.h>
+#define MAX 50
+void insert();
+void delete();
+void display();
+int queue_array[MAX];
+int rear = - 1;
+int front = - 1;
+int main()
+{
+int choice;
+while (1)
+{
+printf("1.Insert element to queue n");
+printf("2.Delete element from queue n");
+printf("3.Display all elements of queue n");
+printf("4.Quit n");
+printf("Enter your choice : ");
+scanf("%d", &choice);
+switch(choice)
+{
+case 1:
+insert();
+break;
+case 2:
+delete();
+break;
+case 3:
+display();
+break;
+case 4:
+exit(1);
+default:
+printf("Wrong choice n");
 }
-
-// Function to check if the queue is empty
-int isEmpty(struct Queue* queue) {
-    return queue->front == -1;
 }
-
-// Function to check if the queue is full
-int isFull(struct Queue* queue) {
-    return (queue->rear + 1) % MAX_SIZE == queue->front;
 }
-
-// Function to enqueue (insert) an element into the queue
-void enqueue(struct Queue* queue, int data) {
-    if (isFull(queue)) {
-        printf("Queue Overflow. Cannot enqueue element %d.\n", data);
-        return;
-    }
-
-    if (isEmpty(queue)) {
-        queue->front = 0;
-    }
-
-    queue->rear = (queue->rear + 1) % MAX_SIZE;
-    queue->arr[queue->rear] = data;
+void insert()
+{
+int item;
+if(rear == MAX - 1)
+printf("Queue Overflow n");
+else
+{
+if(front== - 1)
+front = 0;
+printf("Inset the element in queue : ");
+scanf("%d", &item);
+rear = rear + 1;
+queue_array[rear] = item;
 }
-
-// Function to dequeue (remove) an element from the queue
-int dequeue(struct Queue* queue) {
-    if (isEmpty(queue)) {
-        printf("Queue Underflow. Cannot dequeue element from an empty queue.\n");
-        return -1;
-    }
-
-    int data = queue->arr[queue->front];
-
-    if (queue->front == queue->rear) {
-        queue->front = -1;
-        queue->rear = -1;
-    } else {
-        queue->front = (queue->front + 1) % MAX_SIZE;
-    }
-
-    return data;
 }
-
-// Function to display the elements of the queue
-void display(struct Queue* queue) {
-    if (isEmpty(queue)) {
-        printf("Queue is empty.\n");
-        return;
-    }
-
-    printf("Queue elements: ");
-    int i = queue->front;
-    while (i != queue->rear) {
-        printf("%d ", queue->arr[i]);
-        i = (i + 1) % MAX_SIZE;
-    }
-    printf("%d\n", queue->arr[queue->rear]);
+void delete()
+{
+if(front == - 1 || front > rear)
+{
+printf("Queue Underflow n");
+return;
 }
-
-int main() {
-    struct Queue queue;
-    initQueue(&queue);
-
-    enqueue(&queue, 10);
-    enqueue(&queue, 20);
-    enqueue(&queue, 30);
-
-    display(&queue);
-
-    printf("Dequeued element: %d\n", dequeue(&queue));
-    printf("Dequeued element: %d\n", dequeue(&queue));
-    printf("Dequeued element: %d\n", dequeue(&queue));
-    printf("Dequeued element: %d\n", dequeue(&queue)); // Trying to dequeue from an empty queue
-
-    return 0;
+else
+{
+printf("Element deleted from queue is : %dn", queue_array[front]);
+front = front + 1;
 }
-output:
-Top element: 30
-Popped element: 30
-Popped element: 20
-Popped element: 10
-Stack Underflow. Cannot pop element from an empty stack.
+}
+void display()
+{
+int i;
+if(front == - 1)
+printf("Queue is empty n");
+else
+{
+printf("Queue is : n");
+for(i = front; i <= rear; i++)
+printf("%d ", queue_array[i]);
+printf("n");
+}
+}
